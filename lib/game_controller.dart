@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talpasplat3/components/game_state.dart';
 import 'package:talpasplat3/components/highscore_text.dart';
+import 'package:talpasplat3/components/score_text.dart';
 import 'package:talpasplat3/components/start_text.dart';
 import 'package:talpasplat3/components/talpa.dart';
 
@@ -16,7 +17,9 @@ class GameController extends Game with TapDetector {
   Size screenSize;
   HighscoreText highscoreText;
   StartText startText;
+
   int score;
+  ScoreText scoreText;
 
   Talpa talpa;
 
@@ -29,6 +32,9 @@ class GameController extends Game with TapDetector {
     gameState = GameState.MENU;
     highscoreText = HighscoreText(this);
     startText = StartText(this);
+
+    score = 0;
+    scoreText = ScoreText(this);
 
     talpa = Talpa(this);
   }
@@ -46,6 +52,7 @@ class GameController extends Game with TapDetector {
 
       case GameState.PLAYING:
         talpa.render(c);
+        scoreText.render(c);
         break;
     }
   }
@@ -59,6 +66,7 @@ class GameController extends Game with TapDetector {
 
       case GameState.PLAYING:
         talpa.update(t);
+        scoreText.update(t);
         break;
     }
   }
@@ -77,6 +85,8 @@ class GameController extends Game with TapDetector {
       case GameState.PLAYING:
         if (talpa.talpaRect.contains(details.globalPosition)) {
           talpa.onTapDown(details);
+        } else {
+          talpa.reset();
         }
         break;
     }

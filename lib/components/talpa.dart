@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:talpasplat3/game_controller.dart';
 
 class Talpa {
@@ -22,6 +23,10 @@ class Talpa {
   }
 
   void reset() {
+    HapticFeedback.vibrate();
+    HapticFeedback.vibrate();
+    HapticFeedback.vibrate();
+    gameController.score = 0;
     currentInterval = maxJumpInterval;
 
     talpaRect = Rect.fromLTWH(gameController.screenSize.width / 2 - size / 2,
@@ -43,9 +48,15 @@ class Talpa {
   }
 
   void onTapDown(TapDownDetails details) {
+    HapticFeedback.lightImpact();
     jump();
     if (currentInterval > minJumpInterval) {
       currentInterval -= intervalChange;
+    }
+    gameController.score++;
+    if (gameController.score >
+        (gameController.storage.getInt('highscore') ?? 0)) {
+      gameController.storage.setInt('highscore', gameController.score);
     }
   }
 
