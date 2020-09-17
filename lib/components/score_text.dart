@@ -24,14 +24,15 @@ class ScoreText {
       painter.text = TextSpan(
           text: gameController.score.toString(),
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
             fontSize: 50.0,
           ));
       painter.layout();
 
       position = Offset(
         (gameController.screenSize.width / 2) - (painter.width / 2),
-        (gameController.screenSize.height * 0.1) - (painter.height / 2),
+        (gameController.screenSize.height * 0.15) - (painter.height / 2),
       );
     }
   }

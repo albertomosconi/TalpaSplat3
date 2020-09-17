@@ -24,7 +24,8 @@ class HighscoreText {
     painter.text = TextSpan(
         text: 'Highscore: $highscore',
         style: TextStyle(
-          color: Colors.black,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
           fontSize: 40.0,
         ));
     painter.layout();

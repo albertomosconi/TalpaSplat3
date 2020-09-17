@@ -22,7 +22,8 @@ class StartText {
     painter.text = TextSpan(
         text: 'tap the screen to start...',
         style: TextStyle(
-          color: Colors.black,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
           fontSize: 20.0,
         ));
     painter.layout();

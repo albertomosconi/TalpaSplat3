@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/flame.dart';
 import 'package:flame/game/game.dart';
 import 'package:flame/gestures.dart';
+import 'package:flame/sprite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talpasplat3/components/game_state.dart';
@@ -17,6 +18,7 @@ class GameController extends Game with TapDetector {
   Size screenSize;
   HighscoreText highscoreText;
   StartText startText;
+  Sprite background;
 
   int score;
   ScoreText scoreText;
@@ -32,6 +34,7 @@ class GameController extends Game with TapDetector {
     gameState = GameState.MENU;
     highscoreText = HighscoreText(this);
     startText = StartText(this);
+    background = Sprite('background.png');
 
     score = 0;
     scoreText = ScoreText(this);
@@ -40,9 +43,11 @@ class GameController extends Game with TapDetector {
   }
 
   void render(Canvas c) {
-    Rect background = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
-    Paint backgroundPaint = Paint()..color = Color(0xFFFAFAFA);
-    c.drawRect(background, backgroundPaint);
+    // Rect background = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
+    // Paint backgroundPaint = Paint()..color = Color(0xFFFAFAFA);
+    // c.drawRect(background, backgroundPaint);
+
+    background.render(c);
 
     switch (gameState) {
       case GameState.MENU:
