@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talpasplat3/components/game_state.dart';
 import 'package:talpasplat3/components/highscore_text.dart';
 import 'package:talpasplat3/components/start_text.dart';
+import 'package:talpasplat3/components/talpa.dart';
 
 class GameController extends Game with TapDetector {
   final SharedPreferences storage;
@@ -15,6 +16,9 @@ class GameController extends Game with TapDetector {
   Size screenSize;
   HighscoreText highscoreText;
   StartText startText;
+  int score;
+
+  Talpa talpa;
 
   GameController(this.storage) {
     initialize();
@@ -25,6 +29,8 @@ class GameController extends Game with TapDetector {
     gameState = GameState.MENU;
     highscoreText = HighscoreText(this);
     startText = StartText(this);
+
+    talpa = Talpa(this);
   }
 
   void render(Canvas c) {
@@ -39,6 +45,7 @@ class GameController extends Game with TapDetector {
         break;
 
       case GameState.PLAYING:
+        talpa.render(c);
         break;
     }
   }
@@ -51,6 +58,7 @@ class GameController extends Game with TapDetector {
         break;
 
       case GameState.PLAYING:
+        talpa.update(t);
         break;
     }
   }
@@ -67,6 +75,9 @@ class GameController extends Game with TapDetector {
         break;
 
       case GameState.PLAYING:
+        if (talpa.talpaRect.contains(details.globalPosition)) {
+          talpa.onTapDown(details);
+        }
         break;
     }
   }
