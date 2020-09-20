@@ -7,7 +7,7 @@ import 'package:talpasplat3/game_controller.dart';
 
 class Talpa {
   final GameController gameController;
-  final int maxJumpInterval = 1500;
+  final int maxJumpInterval = 2000;
   final int minJumpInterval = 100;
   final int intervalChange = 20;
   int currentInterval;
