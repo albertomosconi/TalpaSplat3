@@ -44,11 +44,12 @@ class GameController extends Game with TapDetector {
   }
 
   void render(Canvas c) {
-    // Rect background = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
+    Rect backgroundRect =
+        Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     // Paint backgroundPaint = Paint()..color = Color(0xFFFAFAFA);
     // c.drawRect(background, backgroundPaint);
 
-    background.render(c);
+    background.renderRect(c, backgroundRect);
 
     switch (gameState) {
       case GameState.MENU:

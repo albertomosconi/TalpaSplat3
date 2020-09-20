@@ -7,9 +7,9 @@ import 'package:talpasplat3/game_controller.dart';
 
 class Talpa {
   final GameController gameController;
-  final int maxJumpInterval = 2000;
+  final int maxJumpInterval = 1500;
   final int minJumpInterval = 100;
-  final int intervalChange = 10;
+  final int intervalChange = 20;
   int currentInterval;
   int nextJump;
 
@@ -40,9 +40,7 @@ class Talpa {
   }
 
   void render(Canvas c) {
-    Paint color = Paint()..color = Color(0xFF0000FF);
     talpaSprite.renderRect(c, talpaRect);
-    // c.drawRect(talpaRect, color);
   }
 
   void update(double t) {
@@ -72,10 +70,9 @@ class Talpa {
     if (x + size > gameController.screenSize.width) {
       x = gameController.screenSize.width - size;
     }
-    double y = gameController.screenSize.height * rand.nextDouble();
-    if (y + size > gameController.screenSize.height) {
-      y = gameController.screenSize.height - size;
-    }
+    double y =
+        gameController.screenSize.height * (0.25 + rand.nextDouble() % 0.5) -
+            size / 2;
 
     talpaRect = Rect.fromLTWH(x, y, size, size);
 
