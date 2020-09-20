@@ -10,6 +10,8 @@ void main() async {
   Util flameUtil = Util();
   await flameUtil.setPortraitUpOnly();
 
+  Flame.images.loadAll(<String>['background.png', 'talpa.png']);
+
   SharedPreferences storage = await SharedPreferences.getInstance();
   GameController gameController = GameController(storage);
   runApp(gameController.widget);

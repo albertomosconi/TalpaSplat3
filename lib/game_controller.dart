@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flame/flame.dart';
@@ -92,6 +93,7 @@ class GameController extends Game with TapDetector {
           talpa.onTapDown(details);
         } else {
           talpa.reset();
+          gameState = GameState.MENU;
         }
         break;
     }

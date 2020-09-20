@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:flame/sprite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:talpasplat3/game_controller.dart';
@@ -13,11 +14,13 @@ class Talpa {
   int nextJump;
 
   Rect talpaRect;
-  final double size = 50;
+  Sprite talpaSprite;
+  final double size = 80;
   Random rand;
 
   Talpa(this.gameController) {
     rand = Random();
+    talpaSprite = Sprite('talpa.png');
 
     reset();
   }
@@ -26,6 +29,7 @@ class Talpa {
     HapticFeedback.vibrate();
     HapticFeedback.vibrate();
     HapticFeedback.vibrate();
+
     gameController.score = 0;
     currentInterval = maxJumpInterval;
 
@@ -37,7 +41,8 @@ class Talpa {
 
   void render(Canvas c) {
     Paint color = Paint()..color = Color(0xFF0000FF);
-    c.drawRect(talpaRect, color);
+    talpaSprite.renderRect(c, talpaRect);
+    // c.drawRect(talpaRect, color);
   }
 
   void update(double t) {
