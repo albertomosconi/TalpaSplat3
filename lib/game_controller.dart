@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:flame/flame.dart';
@@ -7,6 +6,7 @@ import 'package:flame/gestures.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talpasplat3/components/bomb.dart';
 import 'package:talpasplat3/components/game_state.dart';
 import 'package:talpasplat3/components/highscore_text.dart';
 import 'package:talpasplat3/components/score_text.dart';
@@ -25,6 +25,7 @@ class GameController extends Game with TapDetector {
   ScoreText scoreText;
 
   Talpa talpa;
+  Bomb bomb;
 
   GameController(this.storage) {
     initialize();
@@ -41,13 +42,12 @@ class GameController extends Game with TapDetector {
     scoreText = ScoreText(this);
 
     talpa = Talpa(this);
+    bomb = Bomb(this);
   }
 
   void render(Canvas c) {
     Rect backgroundRect =
         Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
-    // Paint backgroundPaint = Paint()..color = Color(0xFFFAFAFA);
-    // c.drawRect(background, backgroundPaint);
 
     background.renderRect(c, backgroundRect);
 
@@ -59,6 +59,7 @@ class GameController extends Game with TapDetector {
 
       case GameState.PLAYING:
         talpa.render(c);
+        bomb.render(c);
         scoreText.render(c);
         break;
     }
@@ -73,6 +74,7 @@ class GameController extends Game with TapDetector {
 
       case GameState.PLAYING:
         talpa.update(t);
+        bomb.update(t);
         scoreText.update(t);
         break;
     }
@@ -90,12 +92,13 @@ class GameController extends Game with TapDetector {
         break;
 
       case GameState.PLAYING:
-        if (talpa.talpaRect.contains(details.globalPosition)) {
-          talpa.onTapDown(details);
-        } else {
+        if (bomb.bombRect.contains(details.globalPosition)) {
           talpa.reset();
           gameState = GameState.MENU;
+        } else if (talpa.talpaRect.contains(details.globalPosition)) {
+          talpa.onTapDown(details);
         }
+
         break;
     }
   }
