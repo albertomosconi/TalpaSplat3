@@ -33,8 +33,8 @@ class Talpa {
     gameController.score = 0;
     currentInterval = maxJumpInterval;
 
-    talpaRect = Rect.fromLTWH(gameController.screenSize.width / 2 - size / 2,
-        gameController.screenSize.height / 2 - size / 2, size, size);
+    //talpaRect = Rect.fromLTWH(gameController.screenSize.width / 2 - size / 2,
+    //    gameController.screenSize.height / 2 - size / 2, size, size);
 
     nextJump = DateTime.now().millisecondsSinceEpoch + currentInterval;
   }

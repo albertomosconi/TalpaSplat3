@@ -4,6 +4,7 @@ import 'package:flame/flame.dart';
 import 'package:flame/game/game.dart';
 import 'package:flame/gestures.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame/time.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talpasplat3/components/bomb.dart';
@@ -12,6 +13,7 @@ import 'package:talpasplat3/components/highscore_text.dart';
 import 'package:talpasplat3/components/score_text.dart';
 import 'package:talpasplat3/components/start_text.dart';
 import 'package:talpasplat3/components/talpa.dart';
+import 'package:talpasplat3/components/timer_bar.dart';
 
 class GameController extends Game with TapDetector {
   final SharedPreferences storage;
@@ -26,6 +28,11 @@ class GameController extends Game with TapDetector {
 
   Talpa talpa;
   Bomb bomb;
+
+  Timer countdown;
+  final double gameDuration = 60.0;
+  double currentTime;
+  TimerBar timerBar;
 
   GameController(this.storage) {
     initialize();
@@ -43,6 +50,10 @@ class GameController extends Game with TapDetector {
 
     talpa = Talpa(this);
     bomb = Bomb(this);
+
+    countdown = Timer(gameDuration);
+    currentTime = gameDuration;
+    timerBar = TimerBar(this);
   }
 
   void render(Canvas c) {
@@ -61,6 +72,7 @@ class GameController extends Game with TapDetector {
         talpa.render(c);
         bomb.render(c);
         scoreText.render(c);
+        timerBar.render(c);
         break;
     }
   }
@@ -75,7 +87,16 @@ class GameController extends Game with TapDetector {
       case GameState.PLAYING:
         talpa.update(t);
         bomb.update(t);
+
         scoreText.update(t);
+
+        countdown.update(t);
+        currentTime = countdown.current.toDouble();
+        if (countdown.isFinished()) {
+          talpa.reset();
+          gameState = GameState.MENU;
+        }
+        timerBar.update(t);
         break;
     }
   }
@@ -89,12 +110,13 @@ class GameController extends Game with TapDetector {
     switch (gameState) {
       case GameState.MENU:
         gameState = GameState.PLAYING;
+        countdown.start();
         break;
 
       case GameState.PLAYING:
         if (bomb.bombRect.contains(details.globalPosition)) {
           talpa.reset();
-          gameState = GameState.MENU;
+          //gameState = GameState.MENU;
         } else if (talpa.talpaRect.contains(details.globalPosition)) {
           talpa.onTapDown(details);
         }
