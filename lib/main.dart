@@ -10,11 +10,11 @@ void main() async {
   Util flameUtil = Util();
   await flameUtil.setPortraitUpOnly();
 
-  Flame.images.loadAll(<String>['background.png', 'talpa.png']);
+  Flame.images.loadAll(<String>['background.png', 'talpa.png', 'bomb.png']);
 
   SharedPreferences storage = await SharedPreferences.getInstance();
   GameController gameController = GameController(storage);
   runApp(gameController.widget);
 
-  // Flame.bgm.play('soundtrack.mp3');
+  Flame.bgm.play('soundtrack.mp3');
 }
