@@ -13,7 +13,7 @@ class TimerBar {
   TimerBar(this.gameController) {
     barWidth = gameController.screenSize.width *
         (gameController.currentTime / gameController.gameDuration);
-    barHeight = 30.0;
+    barHeight = 15.0;
 
     //timerBarRect = Rect.fromLTWH(
     //    0, gameController.screenSize.height - barHeight, barWidth, barHeight);
@@ -36,6 +36,9 @@ class TimerBar {
         (1 - gameController.currentTime / gameController.gameDuration);
 
     currentTimeBarRect = Rect.fromLTWH(
-        0, gameController.screenSize.height - barHeight, barWidth, barHeight);
+        (gameController.screenSize.width - barWidth) / 2,
+        gameController.screenSize.height - barHeight,
+        barWidth,
+        barHeight);
   }
 }
