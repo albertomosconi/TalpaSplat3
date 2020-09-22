@@ -7,7 +7,7 @@ import 'package:flame/sprite.dart';
 import 'package:flame/time.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:talpasplat3/components/bomb.dart';
+import 'package:talpasplat3/bomb_spawner.dart';
 import 'package:talpasplat3/components/game_state.dart';
 import 'package:talpasplat3/components/highscore_text.dart';
 import 'package:talpasplat3/components/score_text.dart';
@@ -27,7 +27,7 @@ class GameController extends Game with TapDetector {
   ScoreText scoreText;
 
   Talpa talpa;
-  Bomb bomb;
+  BombSpawner bombSpawner;
 
   Timer countdown;
   final double gameDuration = 60.0;
@@ -49,7 +49,7 @@ class GameController extends Game with TapDetector {
     scoreText = ScoreText(this);
 
     talpa = Talpa(this);
-    bomb = Bomb(this);
+    bombSpawner = BombSpawner(this);
 
     countdown = Timer(gameDuration);
     currentTime = gameDuration;
@@ -70,7 +70,7 @@ class GameController extends Game with TapDetector {
 
       case GameState.PLAYING:
         talpa.render(c);
-        bomb.render(c);
+        bombSpawner.render(c);
         scoreText.render(c);
         timerBar.render(c);
         break;
@@ -86,7 +86,7 @@ class GameController extends Game with TapDetector {
 
       case GameState.PLAYING:
         talpa.update(t);
-        bomb.update(t);
+        bombSpawner.update(t);
 
         scoreText.update(t);
 
@@ -114,7 +114,7 @@ class GameController extends Game with TapDetector {
         break;
 
       case GameState.PLAYING:
-        if (bomb.bombRect.contains(details.globalPosition)) {
+        if (bombSpawner.bomb.bombRect.contains(details.globalPosition)) {
           talpa.reset();
           //gameState = GameState.MENU;
         } else if (talpa.talpaRect.contains(details.globalPosition)) {

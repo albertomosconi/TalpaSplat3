@@ -16,5 +16,5 @@ void main() async {
   GameController gameController = GameController(storage);
   runApp(gameController.widget);
 
-  Flame.bgm.play('soundtrack.mp3');
+  //Flame.bgm.play('soundtrack.mp3');
 }
