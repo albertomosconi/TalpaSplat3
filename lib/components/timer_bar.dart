@@ -19,7 +19,10 @@ class TimerBar {
     //    0, gameController.screenSize.height - barHeight, barWidth, barHeight);
 
     currentTimeBarRect = Rect.fromLTWH(
-        0, gameController.screenSize.height - barHeight, barWidth, barHeight);
+        0,
+        gameController.screenSize.height - barHeight - 10.0,
+        barWidth,
+        barHeight);
   }
 
   void render(Canvas c) {
@@ -37,7 +40,7 @@ class TimerBar {
 
     currentTimeBarRect = Rect.fromLTWH(
         (gameController.screenSize.width - barWidth) / 2,
-        gameController.screenSize.height - barHeight,
+        gameController.screenSize.height - barHeight - 10.0,
         barWidth,
         barHeight);
   }

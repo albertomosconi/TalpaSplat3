@@ -3,13 +3,14 @@ import 'dart:ui';
 import 'package:flame/sprite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:talpasplat3/bomb_spawner.dart';
 import 'package:talpasplat3/game_controller.dart';
 
 class Talpa {
   final GameController gameController;
-  final int maxJumpInterval = 2000;
+  final int maxJumpInterval = 1500;
   final int minJumpInterval = 100;
-  final int intervalChange = 20;
+  final int intervalChange = 15;
   int currentInterval;
   int nextJump;
 
@@ -57,6 +58,10 @@ class Talpa {
       currentInterval -= intervalChange;
     }
     gameController.score++;
+
+    if (gameController.score % 10 == 0) {
+      gameController.bombSpawner.maxWaitForBomb -= 2.0;
+    }
   }
 
   void jump() {
