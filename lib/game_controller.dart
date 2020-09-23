@@ -93,6 +93,9 @@ class GameController extends Game with TapDetector {
         countdown.update(t);
         currentTime = countdown.current.toDouble();
         if (countdown.isFinished()) {
+          if (score > (storage.getInt('highscore') ?? 0)) {
+            storage.setInt('highscore', score);
+          }
           talpa.reset();
           gameState = GameState.MENU;
         }
