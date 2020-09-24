@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talpasplat3/game_controller.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +15,7 @@ void main() async {
   await flameUtil.fullScreen();
   await flameUtil.setOrientation(DeviceOrientation.portraitUp);
 
-  AudioPlayer bgm;
-  bgm = await Flame.audio.loopLongAudio('soundtrack.mp3', volume: .5);
+  await Flame.audio.loopLongAudio('soundtrack.mp3', volume: .5);
 
   SharedPreferences storage = await SharedPreferences.getInstance();
   GameController gameController = GameController(storage);

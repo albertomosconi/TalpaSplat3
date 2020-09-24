@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flame/sprite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:talpasplat3/bomb_spawner.dart';
 import 'package:talpasplat3/game_controller.dart';
 
 class Talpa {
@@ -33,9 +32,6 @@ class Talpa {
 
     gameController.score = 0;
     currentInterval = maxJumpInterval;
-
-    //talpaRect = Rect.fromLTWH(gameController.screenSize.width / 2 - size / 2,
-    //    gameController.screenSize.height / 2 - size / 2, size, size);
 
     nextJump = DateTime.now().millisecondsSinceEpoch + currentInterval;
   }
@@ -81,7 +77,7 @@ class Talpa {
         gameController.screenSize.height * (0.25 + rand.nextDouble() % 0.5) -
             size / 2;
 
-    talpaRect = Rect.fromLTWH(x, y, size, size);
+    talpaRect = Rect.fromLTWH(x, y, size, size * 0.55);
 
     nextJump = now + currentInterval;
   }
