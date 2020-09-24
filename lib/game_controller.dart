@@ -107,6 +107,7 @@ class GameController extends Game with TapDetector {
 
   void resize(Size size) {
     screenSize = size;
+    super.resize(size);
   }
 
   @override

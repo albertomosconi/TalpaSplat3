@@ -22,10 +22,13 @@ class StartText {
     painter.text = TextSpan(
         text: 'tap the screen to start...',
         style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 20.0,
-        ));
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20.0,
+            shadows: <Shadow>[
+              Shadow(
+                  blurRadius: 7, color: Color(0xff000000), offset: Offset(3, 3))
+            ]));
     painter.layout();
 
     position = Offset(
