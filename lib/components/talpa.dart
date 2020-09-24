@@ -59,8 +59,14 @@ class Talpa {
     }
     gameController.score++;
 
-    if (gameController.score % 10 == 0) {
-      gameController.bombSpawner.maxWaitForBomb -= 2.0;
+    if (gameController.score % 5 == 0 && gameController.score != 0) {
+      gameController.bombSpawner.maxWaitForBomb = max(
+          gameController.bombSpawner.maxWaitForBomb - 1.0,
+          gameController.bombSpawner.minWaitForBomb);
+
+      gameController.bombSpawner.maxShowDuration = max(
+          gameController.bombSpawner.maxShowDuration - 0.1,
+          gameController.bombSpawner.minShowDuration);
     }
   }
 

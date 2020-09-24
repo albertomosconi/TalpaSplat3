@@ -14,10 +14,10 @@ class BombSpawner {
 
   bool show = false;
 
-  double maxWaitForBomb = 10.0;
-  final double minWaitForBomb = 2.0;
-  final double maxShowDuration = 3.0;
-  final double minShowDuration = 1.0;
+  double maxWaitForBomb;
+  final double minWaitForBomb = 1.0;
+  double maxShowDuration;
+  final double minShowDuration = 0.5;
   Timer spawnCountdown;
   Timer showCountdown;
 
@@ -26,6 +26,16 @@ class BombSpawner {
     bomb = Bomb(gameController, gameController.screenSize.width / 2,
         gameController.screenSize.width / 2);
 
+    reset();
+  }
+
+  void reset() {
+    show = false;
+    bomb = Bomb(gameController, -100, -100);
+
+    maxWaitForBomb = 10.0;
+    maxShowDuration = 3.0;
+
     spawnCountdown = Timer(
         minWaitForBomb + rand.nextDouble() * (maxWaitForBomb - minWaitForBomb));
     spawnCountdown.start();
@@ -33,6 +43,7 @@ class BombSpawner {
     showCountdown = Timer(minShowDuration +
         rand.nextDouble() * (maxShowDuration - minShowDuration));
   }
+
   void render(Canvas c) {
     if (show) {
       bomb.render(c);

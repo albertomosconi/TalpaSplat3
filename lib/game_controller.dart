@@ -96,6 +96,7 @@ class GameController extends Game with TapDetector {
           if (score > (storage.getInt('highscore') ?? 0)) {
             storage.setInt('highscore', score);
           }
+          bombSpawner.reset();
           talpa.reset();
           gameState = GameState.MENU;
         }
@@ -118,6 +119,7 @@ class GameController extends Game with TapDetector {
 
       case GameState.PLAYING:
         if (bombSpawner.bomb.bombRect.contains(details.globalPosition)) {
+          bombSpawner.reset();
           talpa.reset();
           //gameState = GameState.MENU;
         } else if (talpa.talpaRect.contains(details.globalPosition)) {
