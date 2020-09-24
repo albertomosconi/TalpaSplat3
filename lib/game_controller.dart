@@ -119,6 +119,7 @@ class GameController extends Game with TapDetector {
 
       case GameState.PLAYING:
         if (bombSpawner.bomb.bombRect.contains(details.globalPosition)) {
+          Flame.audio.play('explosion.ogg');
           bombSpawner.reset();
           talpa.reset();
           //gameState = GameState.MENU;

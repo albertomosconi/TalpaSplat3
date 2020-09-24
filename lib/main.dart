@@ -11,6 +11,7 @@ void main() async {
   await flameUtil.setPortraitUpOnly();
 
   Flame.images.loadAll(<String>['background.png', 'talpa.png', 'bomb.png']);
+  Flame.audio.loadAll(<String>['soundtrack.mp3', 'explosion.ogg']);
 
   SharedPreferences storage = await SharedPreferences.getInstance();
   GameController gameController = GameController(storage);

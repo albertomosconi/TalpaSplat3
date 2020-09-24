@@ -50,6 +50,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/audio/soundtrack.mp3
+    - assets/audio/explosion.ogg
     - assets/images/background.png
     - assets/images/talpa.png
     - assets/images/bomb.png
