@@ -1,4 +1,4 @@
-package com.example.talpasplat3
+package it.albertomosconi.talpasplat3
 
 import io.flutter.embedding.android.FlutterActivity
 
