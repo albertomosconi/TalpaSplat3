@@ -3,28 +3,28 @@ import 'dart:ui';
 import 'package:flame/flame.dart';
 import 'package:flame/game/game.dart';
 import 'package:flame/gestures.dart';
-import 'package:flame/sprite.dart';
 import 'package:flame/time.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talpasplat3/bomb_spawner.dart';
-import 'package:talpasplat3/components/game_state.dart';
-import 'package:talpasplat3/components/highscore_text.dart';
-import 'package:talpasplat3/components/score_text.dart';
-import 'package:talpasplat3/components/start_text.dart';
 import 'package:talpasplat3/components/talpa.dart';
-import 'package:talpasplat3/components/timer_bar.dart';
+import 'package:talpasplat3/view.dart';
+import 'package:talpasplat3/views/home-view.dart';
+import 'package:talpasplat3/views/playing-view.dart';
 
 class GameController extends Game with TapDetector {
-  final SharedPreferences storage;
-  GameState gameState;
   Size screenSize;
-  HighscoreText highscoreText;
-  StartText startText;
-  Sprite background;
+  double tileSize;
+
+  View activeView = View.HOME;
+  HomeView homeView;
+  PlayingView playingView;
+
+  final SharedPreferences storage;
+  //HighscoreText highscoreText;
+  //StartText startText;
 
   int score;
-  ScoreText scoreText;
 
   Talpa talpa;
   BombSpawner bombSpawner;
@@ -32,7 +32,6 @@ class GameController extends Game with TapDetector {
   Timer countdown;
   final double gameDuration = 60.0;
   double currentTime;
-  TimerBar timerBar;
 
   GameController(this.storage) {
     initialize();
@@ -40,55 +39,52 @@ class GameController extends Game with TapDetector {
 
   void initialize() async {
     resize(await Flame.util.initialDimensions());
-    gameState = GameState.MENU;
-    highscoreText = HighscoreText(this);
-    startText = StartText(this);
-    background = Sprite('background.png');
+
+    homeView = HomeView(this);
+
+    //highscoreText = HighscoreText(this);
+    //startText = StartText(this);
 
     score = 0;
-    scoreText = ScoreText(this);
 
     talpa = Talpa(this);
     bombSpawner = BombSpawner(this);
 
     countdown = Timer(gameDuration);
     currentTime = gameDuration;
-    timerBar = TimerBar(this);
   }
 
   void render(Canvas c) {
-    Rect backgroundRect =
-        Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
-
-    background.renderRect(c, backgroundRect);
-
-    switch (gameState) {
-      case GameState.MENU:
-        startText.render(c);
-        highscoreText.render(c);
+    switch (activeView) {
+      case View.HOME:
+        homeView.render(c);
+        //startText.render(c);
+        //highscoreText.render(c);
         break;
 
-      case GameState.PLAYING:
+      case View.PLAYING:
+        playingView.render(c);
+
         talpa.render(c);
         bombSpawner.render(c);
-        scoreText.render(c);
-        timerBar.render(c);
+        break;
+      case View.END:
         break;
     }
   }
 
   void update(double t) {
-    switch (gameState) {
-      case GameState.MENU:
-        startText.update(t);
-        highscoreText.update(t);
+    switch (activeView) {
+      case View.HOME:
+        //startText.update(t);
+        //highscoreText.update(t);
         break;
 
-      case GameState.PLAYING:
+      case View.PLAYING:
+        playingView.update(t);
+
         talpa.update(t);
         bombSpawner.update(t);
-
-        scoreText.update(t);
 
         countdown.update(t);
         currentTime = countdown.current.toDouble();
@@ -98,36 +94,43 @@ class GameController extends Game with TapDetector {
           }
           bombSpawner.reset();
           talpa.reset();
-          gameState = GameState.MENU;
+          activeView = View.HOME;
         }
-        timerBar.update(t);
+        break;
+      case View.END:
         break;
     }
   }
 
   void resize(Size size) {
     screenSize = size;
+    tileSize = screenSize.width / 9;
+
     super.resize(size);
   }
 
   @override
   void onTapDown(TapDownDetails details) {
-    switch (gameState) {
-      case GameState.MENU:
-        gameState = GameState.PLAYING;
-        countdown.start();
+    switch (activeView) {
+      case View.HOME:
+        if (homeView.startButtonRect.contains(details.globalPosition)) {
+          activeView = View.PLAYING;
+          playingView = PlayingView(this);
+          countdown.start();
+        }
         break;
 
-      case GameState.PLAYING:
+      case View.PLAYING:
         if (bombSpawner.bomb.bombRect.contains(details.globalPosition)) {
           Flame.audio.play('explosion.ogg');
           bombSpawner.reset();
           talpa.reset();
-          //gameState = GameState.MENU;
         } else if (talpa.talpaRect.contains(details.globalPosition)) {
           talpa.onTapDown(details);
         }
+        break;
 
+      case View.END:
         break;
     }
   }

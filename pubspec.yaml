@@ -54,6 +54,9 @@ flutter:
     - assets/images/background.png
     - assets/images/talpa.png
     - assets/images/bomb.png
+    - assets/images/ui/title.png
+    - assets/images/ui/start-button.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

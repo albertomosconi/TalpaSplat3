@@ -14,13 +14,17 @@ class Talpa {
   int nextJump;
 
   Rect talpaRect;
-  Sprite talpaSprite;
+  //Sprite talpaSprite;
+  List<Sprite> talpaSprite;
+  double talpaSpriteIndex = 0;
   final double size = 80;
   Random rand;
 
   Talpa(this.gameController) {
     rand = Random();
-    talpaSprite = Sprite('talpa.png');
+
+    talpaSprite = List<Sprite>();
+    talpaSprite.add(Sprite('talpa.png'));
 
     reset();
   }
@@ -33,14 +37,25 @@ class Talpa {
     gameController.score = 0;
     currentInterval = maxJumpInterval;
 
+    talpaRect = Rect.fromLTWH(
+        gameController.screenSize.width / 2,
+        gameController.screenSize.height / 2,
+        gameController.tileSize * 1.5,
+        gameController.tileSize * 0.55 * 1.5);
+
     nextJump = DateTime.now().millisecondsSinceEpoch + currentInterval;
   }
 
   void render(Canvas c) {
-    talpaSprite.renderRect(c, talpaRect);
+    talpaSprite[talpaSpriteIndex.toInt()].renderRect(c, talpaRect.inflate(2));
   }
 
   void update(double t) {
+    talpaSpriteIndex += 30 * t;
+    if (talpaSpriteIndex >= talpaSprite.length) {
+      talpaSpriteIndex = 0;
+    }
+
     int now = DateTime.now().millisecondsSinceEpoch;
     if (now >= nextJump) {
       jump();
@@ -77,7 +92,8 @@ class Talpa {
         gameController.screenSize.height * (0.25 + rand.nextDouble() % 0.5) -
             size / 2;
 
-    talpaRect = Rect.fromLTWH(x, y, size, size * 0.55);
+    talpaRect = Rect.fromLTWH(x, y, gameController.tileSize * 1.5,
+        gameController.tileSize * 0.55 * 1.5);
 
     nextJump = now + currentInterval;
   }

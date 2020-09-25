@@ -8,16 +8,24 @@ import 'package:talpasplat3/game_controller.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Flame.images.loadAll(<String>['background.png', 'talpa.png', 'bomb.png']);
-  Flame.audio.loadAll(<String>['soundtrack.mp3', 'explosion.ogg']);
-
   Util flameUtil = Util();
   await flameUtil.fullScreen();
   await flameUtil.setOrientation(DeviceOrientation.portraitUp);
 
-  await Flame.audio.loopLongAudio('soundtrack.mp3', volume: .5);
-
   SharedPreferences storage = await SharedPreferences.getInstance();
+
+  Flame.images.loadAll(<String>[
+    'background.png',
+    'talpa.png',
+    'bomb.png',
+    'ui/title.png',
+    'ui/start-button.png'
+  ]);
+
+  Flame.audio.disableLog();
+
+  Flame.audio.loadAll(<String>['soundtrack.mp3', 'explosion.ogg']);
+
   GameController gameController = GameController(storage);
   runApp(gameController.widget);
 }
