@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talpasplat3/bomb_spawner.dart';
 import 'package:talpasplat3/components/talpa.dart';
 import 'package:talpasplat3/view.dart';
+import 'package:talpasplat3/views/end-view.dart';
 import 'package:talpasplat3/views/home-view.dart';
 import 'package:talpasplat3/views/playing-view.dart';
 
@@ -19,6 +20,7 @@ class GameController extends Game with TapDetector {
   View activeView = View.HOME;
   HomeView homeView;
   PlayingView playingView;
+  EndView endView;
 
   final SharedPreferences storage;
   //HighscoreText highscoreText;
@@ -30,7 +32,7 @@ class GameController extends Game with TapDetector {
   BombSpawner bombSpawner;
 
   Timer countdown;
-  final double gameDuration = 60.0;
+  final double gameDuration = 10.0;
   double currentTime;
 
   GameController(this.storage) {
@@ -69,6 +71,7 @@ class GameController extends Game with TapDetector {
         bombSpawner.render(c);
         break;
       case View.END:
+        endView.render(c);
         break;
     }
   }
@@ -94,7 +97,8 @@ class GameController extends Game with TapDetector {
           }
           bombSpawner.reset();
           talpa.reset();
-          activeView = View.HOME;
+          activeView = View.END;
+          endView = EndView(this);
         }
         break;
       case View.END:
@@ -131,6 +135,8 @@ class GameController extends Game with TapDetector {
         break;
 
       case View.END:
+        if (endView.homeButtonRect.contains(details.globalPosition))
+          activeView = View.HOME;
         break;
     }
   }
