@@ -59,8 +59,8 @@ class HomeView {
 
     titleSprite.renderRect(c, titleRect);
     startButtonSprite.renderRect(c, startButtonRect);
-    helpIconSprite.renderRect(c, helpIconRect);
-    creditsIconSprite.renderRect(c, creditsIconRect);
+    // helpIconSprite.renderRect(c, helpIconRect);
+    // creditsIconSprite.renderRect(c, creditsIconRect);
   }
 
   void update(double t) {}

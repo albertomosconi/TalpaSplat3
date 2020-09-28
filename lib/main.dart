@@ -20,6 +20,7 @@ void main() async {
     'bomb.png',
     'ui/title.png',
     'ui/start-button.png',
+    'ui/home-button.png',
     'ui/dialog-credits.png',
     'ui/dialog-help.png',
     'ui/icon-credits.png',

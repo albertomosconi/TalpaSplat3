@@ -32,7 +32,7 @@ class GameController extends Game with TapDetector {
   BombSpawner bombSpawner;
 
   Timer countdown;
-  final double gameDuration = 10.0;
+  final double gameDuration = 5.0;
   double currentTime;
 
   GameController(this.storage) {
@@ -137,6 +137,11 @@ class GameController extends Game with TapDetector {
       case View.END:
         if (endView.homeButtonRect.contains(details.globalPosition))
           activeView = View.HOME;
+        else if (endView.playAgainButtonRect.contains(details.globalPosition)) {
+          activeView = View.PLAYING;
+          playingView = PlayingView(this);
+          countdown.start();
+        }
         break;
     }
   }

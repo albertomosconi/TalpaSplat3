@@ -56,6 +56,7 @@ flutter:
     - assets/images/bomb.png
     - assets/images/ui/title.png
     - assets/images/ui/start-button.png
+    - assets/images/ui/home-button.png
     - assets/images/ui/dialog-credits.png
     - assets/images/ui/dialog-help.png
     - assets/images/ui/icon-credits.png
