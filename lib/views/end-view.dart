@@ -2,12 +2,17 @@ import 'dart:ui';
 
 import 'package:flame/sprite.dart';
 import 'package:talpasplat3/components/background.dart';
+import 'package:talpasplat3/components/highscore_text.dart';
+import 'package:talpasplat3/components/score_text.dart';
 import 'package:talpasplat3/game_controller.dart';
 
 class EndView {
   final GameController gameController;
 
   Background background;
+
+  HighscoreText highscoreText;
+  ScoreText scoreText;
 
   Rect homeButtonRect;
   Sprite homeButtonSprite;
@@ -16,6 +21,9 @@ class EndView {
 
   EndView(this.gameController) {
     background = Background(gameController, 'background.png');
+
+    highscoreText = HighscoreText(gameController);
+    scoreText = ScoreText(gameController);
 
     homeButtonRect = Rect.fromLTWH(
       gameController.tileSize * 1.5,
@@ -36,6 +44,9 @@ class EndView {
 
   void render(Canvas c) {
     background.render(c);
+
+    highscoreText.render(c);
+    scoreText.render(c);
 
     homeButtonSprite.renderRect(c, homeButtonRect);
     playAgainButtonSprite.renderRect(c, playAgainButtonRect);

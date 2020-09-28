@@ -44,9 +44,6 @@ class GameController extends Game with TapDetector {
 
     homeView = HomeView(this);
 
-    //highscoreText = HighscoreText(this);
-    //startText = StartText(this);
-
     score = 0;
 
     talpa = Talpa(this);
@@ -79,8 +76,6 @@ class GameController extends Game with TapDetector {
   void update(double t) {
     switch (activeView) {
       case View.HOME:
-        //startText.update(t);
-        //highscoreText.update(t);
         break;
 
       case View.PLAYING:
@@ -95,8 +90,6 @@ class GameController extends Game with TapDetector {
           if (score > (storage.getInt('highscore') ?? 0)) {
             storage.setInt('highscore', score);
           }
-          bombSpawner.reset();
-          talpa.reset();
           activeView = View.END;
           endView = EndView(this);
         }
@@ -120,6 +113,8 @@ class GameController extends Game with TapDetector {
         if (homeView.startButtonRect.contains(details.globalPosition)) {
           activeView = View.PLAYING;
           playingView = PlayingView(this);
+          talpa.reset();
+          bombSpawner.reset();
           countdown.start();
         }
         break;
@@ -135,11 +130,14 @@ class GameController extends Game with TapDetector {
         break;
 
       case View.END:
-        if (endView.homeButtonRect.contains(details.globalPosition))
+        if (endView.homeButtonRect.contains(details.globalPosition)) {
           activeView = View.HOME;
-        else if (endView.playAgainButtonRect.contains(details.globalPosition)) {
+        } else if (endView.playAgainButtonRect
+            .contains(details.globalPosition)) {
           activeView = View.PLAYING;
           playingView = PlayingView(this);
+          talpa.reset();
+          bombSpawner.reset();
           countdown.start();
         }
         break;

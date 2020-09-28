@@ -13,13 +13,7 @@ class HighscoreText {
       textDirection: TextDirection.ltr,
     );
     position = Offset.zero;
-  }
 
-  void render(Canvas c) {
-    painter.paint(c, position);
-  }
-
-  void update(double t) {
     int highscore = gameController.storage.getInt('highscore') ?? 0;
     painter.text = TextSpan(
         text: 'Highscore: $highscore',
@@ -35,7 +29,11 @@ class HighscoreText {
 
     position = Offset(
       (gameController.screenSize.width / 2) - (painter.width / 2),
-      (gameController.screenSize.height * 0.2) - (painter.height / 2),
+      (gameController.screenSize.height * 0.4) - (painter.height / 2),
     );
+  }
+
+  void render(Canvas c) {
+    painter.paint(c, position);
   }
 }
