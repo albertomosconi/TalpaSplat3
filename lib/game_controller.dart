@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game/game.dart';
 import 'package:flame/gestures.dart';
 import 'package:flame/time.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talpasplat3/bgm.dart';
 import 'package:talpasplat3/bomb_spawner.dart';
 import 'package:talpasplat3/components/talpa.dart';
 import 'package:talpasplat3/view.dart';
@@ -23,8 +25,6 @@ class GameController extends Game with TapDetector {
   EndView endView;
 
   final SharedPreferences storage;
-  //HighscoreText highscoreText;
-  //StartText startText;
 
   int score;
 
@@ -32,8 +32,10 @@ class GameController extends Game with TapDetector {
   BombSpawner bombSpawner;
 
   Timer countdown;
-  final double gameDuration = 5.0;
+  final double gameDuration = 30.0;
   double currentTime;
+
+  AudioPlayer bgm;
 
   GameController(this.storage) {
     initialize();
@@ -51,14 +53,14 @@ class GameController extends Game with TapDetector {
 
     countdown = Timer(gameDuration);
     currentTime = gameDuration;
+
+    BGM.play(0);
   }
 
   void render(Canvas c) {
     switch (activeView) {
       case View.HOME:
         homeView.render(c);
-        //startText.render(c);
-        //highscoreText.render(c);
         break;
 
       case View.PLAYING:
@@ -121,7 +123,7 @@ class GameController extends Game with TapDetector {
 
       case View.PLAYING:
         if (bombSpawner.bomb.bombRect.contains(details.globalPosition)) {
-          Flame.audio.play('explosion.ogg');
+          Flame.audio.play('explosion.mp3');
           bombSpawner.reset();
           talpa.reset();
         } else if (talpa.talpaRect.contains(details.globalPosition)) {

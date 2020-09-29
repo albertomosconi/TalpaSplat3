@@ -1,4 +1,0 @@
-enum GameState {
-  MENU,
-  PLAYING,
-}

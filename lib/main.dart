@@ -1,8 +1,10 @@
+import 'package:flame/bgm.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talpasplat3/bgm.dart';
 import 'package:talpasplat3/game_controller.dart';
 
 void main() async {
@@ -27,9 +29,9 @@ void main() async {
     'ui/icon-help.png',
   ]);
 
-  Flame.audio.disableLog();
-
-  Flame.audio.loadAll(<String>['soundtrack.mp3', 'explosion.ogg']);
+  Flame.audio.loadAll(<String>['explosion.mp3']);
+  BGM.attachWidgetBindingListener();
+  await BGM.add('soundtrack.mp3');
 
   GameController gameController = GameController(storage);
   runApp(gameController.widget);
