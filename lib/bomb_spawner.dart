@@ -15,7 +15,7 @@ class BombSpawner {
   bool show = false;
 
   double maxWaitForBomb;
-  final double minWaitForBomb = 1.0;
+  final double minWaitForBomb = 0.5;
   double maxShowDuration;
   final double minShowDuration = 0.5;
   Timer spawnCountdown;

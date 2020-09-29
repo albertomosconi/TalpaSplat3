@@ -9,7 +9,7 @@ class Talpa {
   final GameController gameController;
   final int maxJumpInterval = 1500;
   final int minJumpInterval = 100;
-  final int intervalChange = 15;
+  final int intervalChange = 25;
   int currentInterval;
   int nextJump;
 
@@ -47,7 +47,7 @@ class Talpa {
   }
 
   void render(Canvas c) {
-    talpaSprite[talpaSpriteIndex.toInt()].renderRect(c, talpaRect.inflate(2));
+    talpaSprite[talpaSpriteIndex.toInt()].renderRect(c, talpaRect);
   }
 
   void update(double t) {
@@ -70,9 +70,9 @@ class Talpa {
     }
     gameController.score++;
 
-    if (gameController.score % 5 == 0 && gameController.score != 0) {
+    if (gameController.score % 2 == 0 && gameController.score != 0) {
       gameController.bombSpawner.maxWaitForBomb = max(
-          gameController.bombSpawner.maxWaitForBomb - 1.0,
+          gameController.bombSpawner.maxWaitForBomb - 2.0,
           gameController.bombSpawner.minWaitForBomb);
 
       gameController.bombSpawner.maxShowDuration = max(

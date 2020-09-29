@@ -32,7 +32,7 @@ class GameController extends Game with TapDetector {
   BombSpawner bombSpawner;
 
   Timer countdown;
-  final double gameDuration = 30.0;
+  final double gameDuration = 40.0;
   double currentTime;
 
   AudioPlayer bgm;
