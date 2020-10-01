@@ -13,6 +13,13 @@
 <a href="https://play.google.com/store/apps/details?id=it.albertomosconi.talpasplat3"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="80" ></a>
 </p>
 
-The new and improved version of the super-popular android game TalpaSplat.
+## Table of Contents
+- [Description](#description "Description")
+- [Contributing](#contributing "Contributing")
+- [Acknowledgements](#acknowledgements "Acknowledgements")
 
-This app was built with Flame, a minimalistic game engine based on Flutter.
+<h2 name="description">📝 Description</h2>
+
+<h2 name="contributing">✍ Contributing</h2>
+
+<h2 name="acknowledgements">🎉 Acknowledgements</h2>
