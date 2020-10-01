@@ -1,4 +1,4 @@
-<p align="center"><img src="./android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="100"></p>
+<p align="center"><img src="./resources/icon.png" width="100"></p>
 <h1 align="center">TalpaSplat3</h1>
 <h4 align="center">A simple and fun FOSS cross-platform game.</h4>
 
