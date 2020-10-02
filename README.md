@@ -19,6 +19,11 @@
 - [Acknowledgements](#acknowledgements "Acknowledgements")
 
 <h2 name="description">Description</h2>
+<p>
+Tap on the mole as many times as you can before the time runs out, but watch out for the bombs!
+
+Hitting a bomb will reset your score. Each time you hit the mole the game gets faster and faster, with more bombs spawning.
+</p>
 
 <h2 name="contributing">Contributing</h2>
 
