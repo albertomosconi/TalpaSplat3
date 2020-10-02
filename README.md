@@ -18,8 +18,8 @@
 - [Contributing](#contributing "Contributing")
 - [Acknowledgements](#acknowledgements "Acknowledgements")
 
-<h2 name="description">📝 Description</h2>
+<h2 name="description">Description</h2>
 
-<h2 name="contributing">✍ Contributing</h2>
+<h2 name="contributing">Contributing</h2>
 
-<h2 name="acknowledgements">🎉 Acknowledgements</h2>
+<h2 name="acknowledgements">Acknowledgements</h2>
